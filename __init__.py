@@ -3,6 +3,8 @@ from . import RelatedLocator
 from . import rainbow_text
 from . import right_ascension_axis
 from . import core
+from . import gaussian_plots
+
 
 __author__ = "Neil Cook"
 __email__ = 'neil.james.cook@gmail.com'
@@ -30,3 +32,4 @@ EqualAxis = core.equal_axis
 # Specific plot functions
 # =============================================================================
 XYHist = core.add_xy_hists
+GaussComp = gaussian_plots.test_2d_dist_for_gauss

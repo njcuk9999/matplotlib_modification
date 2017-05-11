@@ -82,18 +82,20 @@ def add_xy_hists(x, y, frame0=None, frame1=None, frame2=None, **kwargs):
 
 def gaussfit(frame, x, y, fit='y'):
 
-    if fit == 'x':
-        median, std = np.median(x), np.std(x)
-        popt, pcov = curve_fit(__gaussian__, y, x, p0=[1, median, std])
-        yfit = np.linspace(y.min(), y.max(), 10000)
-        xfit = __gaussian__(yfit, *popt)
-    else:
-        median, std = np.median(y), np.std(y)
-        popt, pcov = curve_fit(__gaussian__, x, y, p0=[1, median, std])
-        xfit = np.linspace(x.min(), x.max(), 10000)
-        yfit = __gaussian__(xfit, *popt)
-
-    frame.plot(xfit, yfit, color='r')
+    try:
+        if fit == 'x':
+            median, std = np.median(x), np.std(x)
+            popt, pcov = curve_fit(__gaussian__, y, x, p0=[1, median, std])
+            yfit = np.linspace(y.min(), y.max(), 10000)
+            xfit = __gaussian__(yfit, *popt)
+        else:
+            median, std = np.median(y), np.std(y)
+            popt, pcov = curve_fit(__gaussian__, x, y, p0=[1, median, std])
+            xfit = np.linspace(x.min(), x.max(), 10000)
+            yfit = __gaussian__(xfit, *popt)
+        frame.plot(xfit, yfit, color='r')
+    except RuntimeError as e:
+        print('\n Cannot fit {0} axis'.format(fit) + e)
 
     return frame
 

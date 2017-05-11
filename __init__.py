@@ -4,6 +4,7 @@ from . import rainbow_text
 from . import right_ascension_axis
 from . import core
 from . import gaussian_plots
+from . import custom_contours
 
 
 __author__ = "Neil Cook"
@@ -27,7 +28,10 @@ RightAscensionAxis = right_ascension_axis.ra_axis
 # Axis functions
 # =============================================================================
 EqualAxis = core.equal_axis
-
+# =============================================================================
+# Contouring functions
+# =============================================================================
+DensityPlot = custom_contours.densityPlot
 # =============================================================================
 # Specific plot functions
 # =============================================================================

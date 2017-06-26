@@ -95,7 +95,7 @@ def gaussfit(frame, x, y, fit='y'):
             yfit = __gaussian__(xfit, *popt)
         frame.plot(xfit, yfit, color='r')
     except RuntimeError as e:
-        print('\n Cannot fit {0} axis'.format(fit) + e)
+        print('\n Cannot fit {0} axis'.format(fit) + e.args[0])
 
     return frame
 

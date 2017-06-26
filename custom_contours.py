@@ -218,7 +218,7 @@ def mask_from_polygons(xarr, yarr, polygons, polygons_in):
                         polygon_in = [True, False, ..., True]
     :return: mask of poitns inside polygons (len of xarr and yarr)
     """
-    xyarr = np.array(zip(xarr, yarr))
+    xyarr = np.array(list(zip(xarr, yarr)))
     falsearray = np.array([False] * len(xarr), dtype=bool)
     insideany = falsearray.copy()
     for k in range(len(polygons)):
@@ -239,7 +239,7 @@ def mask_from_polygons(xarr, yarr, polygons, polygons_in):
             mask2 = (yarr > pmin_y) & (yarr < pmax_y)
             mask = mask1 & mask2
             # if no points inside poly clip box then don't bother counting
-            if len(mask[mask]) == 0:
+            if np.sum(mask) == 0:
                 continue
             # -----------------------------------------------------------------
             # deal with annoying contained polygons

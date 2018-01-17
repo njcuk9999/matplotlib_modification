@@ -102,3 +102,80 @@ def gaussfit(frame, x, y, fit='y'):
 
 def __gaussian__(x, a, mu, sigma):
     return a*np.exp(-(x-mu)**2/(2*sigma**2))
+
+
+def optimal_grid(num):
+    """
+    Create the optimal grid for a set of "num" plots
+
+    i.e. in using  fig, frames = plt.subplots(nrows, ncols)
+
+    chooses nrows and ncols and gives the positions in frames for
+    each iteration from 0 to "num"
+
+    :param num: int, the number of plots needed
+
+    :return nrows: int, the number of rows needed
+    :return ncols: int, the number of columns needed
+    :return pos: list, list of tuples containing the positions of plots
+                    i.e. [[0, 0], [0, 1], [0, 2]]
+
+    example:
+        >>> num = 5
+        >>> nrows, ncols, pos = optimal_grid(num)
+        >>> fig, frames = plt.subplots(nrows=nrows, ncols=ncols)
+        >>> for it in range(num):
+        >>>     frame = frames[pos[it][0], pos[it][1]]
+        >>>     ...
+    """
+
+    # get maximum shape
+    shape = int(np.ceil(np.sqrt(num)))
+    # get number of rows and columns based on maximum shape
+    if shape ** 2 == num:
+        nrows = shape
+        ncols = shape
+    else:
+        nrows = int(np.ceil(num / shape))
+        ncols = int(np.ceil(num / nrows))
+    # get position of figures
+    pos = []
+    for i in range(nrows):
+        for j in range(ncols):
+            pos.append([i, j])
+    # return nrows, ncols and positions
+    return nrows, ncols, pos
+
+
+def find_min_max(x, y, xmin, xmax, ymin, ymax, zoomout=0.05):
+    """
+    Takes arrays of x and y and tests limits against previously defined limits
+    if limits are exceeded limits are changed with a zoom out factor
+
+    :param x: array, x values
+    :param y: array, yvalues
+    :param xmin: float, old xmin value to be tested
+    :param xmax: float, old xmax value to be tested
+    :param ymin: float, old ymin value to be tested
+    :param ymax: float, old ymax value to be tested
+    :param zoomout: float, the fraction zoomout factor i.e. 0.05 = 5% zoomout
+                    to zoom in make number negative, for no zoomout put it to
+                    zero
+    :return:
+    """
+    if len(x) != 0:
+        newxmin, newxmax = np.min(x), np.max(x)
+        diffx = newxmax - newxmin
+        if newxmin < xmin:
+            xmin = newxmin - zoomout * diffx
+        if newxmax > xmax:
+            xmax = newxmax + zoomout * diffx
+
+    if len(y) != 0:
+        newymin, newymax = np.min(y), np.max(y)
+        diffy = newymax - newymin
+        if newymin < ymin:
+            ymin = newymin - zoomout * diffy
+        if newymax > ymax:
+            ymax = newymax + zoomout * diffy
+    return xmin, xmax, ymin, ymax

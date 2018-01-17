@@ -19,19 +19,29 @@ __all__ = ['Formatter', 'Locator', 'TimeFormatter', 'RainbowText',
 Formatter = RelatedFormatter.RelatedFormatter
 Locator = RelatedLocator.RelatedLocator
 TimeFormatter = RelatedFormatter.TimeFormatter
+
+# =============================================================================
+# Limits functions
+# =============================================================================
+RunningMinMax = core.find_min_max
+
 # =============================================================================
 # Misc functions
 # =============================================================================
 RainbowText = rainbow_text.rtext
 RightAscensionAxis = right_ascension_axis.ra_axis
+
 # =============================================================================
 # Axis functions
 # =============================================================================
 EqualAxis = core.equal_axis
+OptimalGrid = core.optimal_grid
+
 # =============================================================================
 # Contouring functions
 # =============================================================================
 DensityPlot = custom_contours.densityPlot
+
 # =============================================================================
 # Specific plot functions
 # =============================================================================
